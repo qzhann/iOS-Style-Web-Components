@@ -1,0 +1,69 @@
+body {
+	margin: 0px auto;
+	font-family: "Helvetica", serif;
+}
+
+#contentDiv {
+	margin: 0px 30px;
+	text-align: center;
+}
+
+#navigationBar {
+	margin: 0px auto;
+
+	background-color: black;
+	height: 45px;
+}
+
+.navigationItem {
+	margin: 0px auto;
+	width: 25%;
+
+	display: block;
+	float: left;
+	text-align: center;
+
+	font-size: 17px;
+	font-weight: normal;
+
+	text-decoration: none;
+	color: white;
+	line-height: 45px;
+
+	margin: 0px;
+	padding: 0px;
+}
+
+#introductionNavigationItem {
+	color: rgb(232, 185, 43);
+}
+
+.navigationItem:hover {
+	color: rgb(128, 191, 253);
+}
+
+.plainText {
+	color: rgb(94, 94, 94);
+	font-weight: lighter;
+	font-size: 15px;
+}
+
+
+#footer {
+	margin: 10px 30px 20px;
+
+}
+
+
+#footerSeparator {
+    height: 1px;
+    background-color: rgb(162, 162, 162);
+}
+
+#footerDescription {
+    margin-top: 5px;
+    	
+    font-weight: lighter;
+    font-size: 11px;
+    color: rgb(162, 162, 162);
+}

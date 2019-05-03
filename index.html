@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UIKit Views and Controls | Zihan Qi</title>
+	<meta charset="UTF-8">
+  	<meta name="description" content="UIKit elements recreated on the web.">
+ 	<meta name="keywords" content="HTML, CSS, JavaScript, UIKit, Swift, iOS">
+ 	<meta name="author" content="Zihan Qi">
+ 	<link rel="stylesheet" href="style.css">
+<style>
+
+    #contentDiv {
+        margin: 0px auto;
+        height: 800px;
+        width: 900px;
+        text-align: center;
+    }
+
+
+    /* introduction layer styling */
+
+    h1 {
+        font-size: 53px;
+        font-weight: 500;
+        margin-top: 100px;
+    }
+
+    #introductionLayer {
+        visibility: visible;
+        transition: all 1s;
+    }
+
+    #startButton {
+        width: 102px;
+        height: 25px;
+        margin-top: 30px;
+
+        color: rgb(230, 230, 230);
+        font-weight: 100;
+        font-size: 12px;
+        border-radius: 5px;
+        border: 1px solid rgb(0, 99, 154);
+        cursor: pointer;
+
+        background-image: linear-gradient(rgb(0, 165, 246), rgb(0, 79, 125));
+    }
+
+    #startButton:active {
+        color: rgb(203, 203, 203);
+        background-image: linear-gradient(rgb(0, 120, 182), rgb(0, 120, 182));
+    }
+
+    /* end of introduction layer styling */
+
+
+    /* animated contents layer styling */
+
+    #animatedContentsLayer {
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 1s;
+    }
+
+    h2 {
+        font-size: 65px;
+        font-weight: 500;
+        margin: 80px 0px;
+        transition: 1.2s all;
+    }
+
+    #iPhoneDiv.normal {
+        height: 600px;
+        width: 305px;
+        margin: 0px 50px; 
+        position: relative;
+        display: inline-block;
+        white-space-collapsing: discard;
+
+        transition: 2s all ease-in-out;
+    }
+
+    #iPhoneImage {
+        height: 600px;
+        width: auto;
+        margin: 0px auto;
+
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        z-index: -1;
+    }
+
+    #homeIndicator {
+        height: 4px;
+        width: 110px;
+        background-color: black;
+        border-radius: 4px;
+
+        margin: 0px auto;
+        
+        position: absolute;
+        bottom: 30px;
+        left: 0px;
+        right: 0px;
+
+        z-index: 0;
+    }
+
+    /* views layer styling */
+
+    #viewsLayer {
+        height: 600px;
+        width: auto;
+        margin: 0px auto;
+
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+
+        transition: 1.5s all ease-in-out;
+    }
+
+    #helloWorldLabel {
+        font-size: 28px;
+        font-weight: bold;
+        padding: 0px 5px;
+        position: absolute;
+        top: 265px;
+        left: 63px;
+
+        transition: 1.5s all ease-in-out;
+    }
+
+    #continueViewButton {
+        font-size: 13px;
+        font-weight: lighter;
+        color: rgb(0, 115, 189);
+        position: absolute;
+        top: 140px;
+        left: 125px;
+        cursor: pointer;
+        visibility: hidden;
+        
+        opacity: 0;
+
+        transition: opacity 1.5s ease, visibility 1.5s ease, color 0.3s;
+    }
+
+    #continueViewButton:active {
+        color: rgb(142, 191, 250);
+    }
+
+    #peanutImageView {
+        width: 200px;
+        height: auto;
+        position: absolute;
+        top: 170px;
+        left: 53px;
+        visibility: hidden;
+        opacity: 0;
+
+        transition: 1.5s all ease;
+    }
+
+    #textView {
+        width: 182px;
+        height: 70px;
+        top: 355px;
+        left: 53px;
+        padding: 8px;
+        outline: none;
+        resize: none;
+        border: 1px solid rgb(146, 146, 146);
+        border-radius: 4px;
+
+        visibility: hidden;
+        position: absolute;
+        opacity: 0;
+
+        transition: 1.5s all ease;
+    }
+
+    #scrollIndicator {
+        width: 3px;
+        height: 420px;
+        background-color: rgb(146, 146, 146);
+        border-radius: 3px;
+
+        position: absolute;
+        top: 60px;
+        right: 28px;
+
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* end of views layer styling */
+
+    /* controls layer styling */
+
+    #continueControlButton {
+        font-size: 13px;
+        font-weight: lighter;
+        color: rgb(0, 115, 189);
+        position: absolute;
+        top: 80px;
+        left: 125px;
+        cursor: pointer;
+        visibility: hidden;
+        
+        opacity: 0;
+
+        transition: opacity 1.5s ease, visibility 1.5s ease, color 0.3s;
+    }
+
+    #continueControlButton:active {
+        color: rgb(142, 191, 250);
+    }
+
+    /* end of controls layer styling */
+
+    #viewsDescriptionDiv {
+        height: 600px;
+        width: 0px;
+        margin: 30px 0px 0px;
+        text-align: left;
+        position: relative;
+        vertical-align: top;
+
+        display: inline-block;
+
+        transition: width 1.5s ease-in-out, padding 1.5s ease-in-out, opacity 0.5s, visibility 0.5s;
+    }
+
+    #labelDescriptionLabel {
+        margin-bottom: 45px;
+    }
+
+    #imageViewDescriptionLabel {
+        margin-bottom: 70px;
+    }
+
+    #controlsDescriptionDiv {
+        height: 600px;
+        width: 0px;
+        margin: 30px 0px 0px;
+        text-align: left;
+        position: relative;
+        vertical-align: top;
+
+        display: inline-block;
+
+        transition: 2.5s all ease-in-out;
+    }
+
+    .titleLabel {
+        font-size: 28px;
+        font-weight: bold;
+        padding: 0px;
+        margin-bottom: 0px;
+        opacity: 0;
+        transition: 2s all ease;
+    }
+
+    .descriptionLabel {
+        font-size: 15px;
+        font-weight: lighter;
+        margin-bottom: 50px;
+        opacity: 0;
+        transition: 2s all ease;
+    }
+
+    /* end of animated contents layer styling */
+
+	
+
+</style>
+</head>
+
+<body>
+	<!--navigationBar-->
+    <div id="navigationBar">
+        <a href="index.html" class="navigationItem" id="introductionNavigationItem">Introduction</a>
+        <a href="views.html" class="navigationItem">Views</a>
+        <a href="controls.html" class="navigationItem">Controls</a>
+        <a href="contact.html" class="navigationItem">Contact Us</a>
+    </div> 
+    <!--Close navigationBar-->
+
+
+    <!--contentDiv-->
+    <div id="contentDiv">
+        <!--In the contentDiv, multiple layers will be present, which will be presented and dismissed during and after transitions-->
+        
+
+        <!--introductionLayer-->
+        <div id="introductionLayer">
+            <h1>UIKit Views and Controls</h1>
+            <p class="plainText">A simplified explanation.</p>
+            <button id="startButton" onclick="dismissIntroductionLayer()">Start</button>
+        </div>
+        <!--close introductionLayer-->
+
+
+
+        <!--animatedContentsLayer-->
+        <div id="animatedContentsLayer">
+            <h2 id="bigTitleLabel">Views</h2>
+
+            <!--controlsDescriptionDiv-->
+            <div id="controlsDescriptionDiv">
+                <p id="buttonTitleLabel" class="titleLabel">Button</p>
+                <p id="buttonDescriptionLabel" class="descriptionLabel">A control that executes your custom code in response to user interactions.</p>
+
+                <p id="sliderTitleLabel" class="titleLabel">Slider</p>
+                <p id="sliderDescriptionLabel" class="descriptionLabel">A control used to select a single value from a continuous range of values.</p>
+
+                <p id="switchTitleLabel" class="titleLabel">Switch</p>
+                <p id="switchDescriptionLabel" class="descriptionLabel">A control used to select a single value from a continuous range of values.</p>
+            </div>
+            <!--close controlsDescriptionDiv-->
+
+            <!--iPhoneDiv-->
+            <div id="iPhoneDiv" class="normal" onclick="introduceLabel()">
+                <img id="iPhoneImage" src="images/iPhoneXS.jpeg" alt="iPhoneXS">
+                <div id="homeIndicator"></div>
+
+                <!--viewsLayer-->
+                <div id="viewsLayer">
+                    <div id="helloWorldLabel">Hello, World.</div>
+                    <div id="continueViewButton" onclick="introduceNewViewElement()">Continue</div>
+
+                    <img id="peanutImageView" src="images/peanut.png" alt="peanut" draggable="false">
+                    <textarea id="textView" placeholder="Say hello to text view..." autofocus oninput="showViewsDescriptionFor(textView)"></textarea>
+                </div>
+                <!--close viewsLayer-->
+
+                <!--The scrollIndicator is outside the views layer since it is not animated with the views during a scroll-->
+                <div id="scrollIndicator"></div>
+
+
+                <!--controlsLayer-->
+                <div id="controlsLayer">
+                    <div id="continueControlButton" onclick="introduceNewControlElement()">Continue</div>
+                </div>
+
+            </div>
+            <!--close iPhoneDiv-->
+
+            <!--viewsDescriptionDiv-->
+            <div id="viewsDescriptionDiv">
+                <p id="labelTitleLabel" class="titleLabel">Label</p>
+                <p id="labelDescriptionLabel" class="descriptionLabel">A view that displays one or more lines of read-only text, often used in conjunction with controls to describe their intended purpose.</p>
+
+                <p id="imageViewTitleLabel" class="titleLabel">Image View</p>
+                <p id="imageViewDescriptionLabel" class="descriptionLabel">An object that displays a single image or a sequence of animated images in your interface.</p>
+
+                <p id="textViewTitleLabel" class="titleLabel">Text View</p>
+                <p id="textViewDescriptionLabel" class="descriptionLabel">A scrollable, multiline text region.</p>
+
+                <p id="scrollViewTitleLabel" class="titleLabel">Scroll View</p>
+                <p id="scrollViewDescriptionLabel" class="descriptionLabel">A view that allows the scrolling and zooming of its contained views.</p>
+            </div>
+            <!--close viewsDescriptionDiv-->
+
+        </div>
+        <!--close animatedContentsLayer-->
+
+
+
+
+    </div>
+    <!--close contentDiv-->
+
+
+    <!--footer-->
+	<div id="footer">
+		<div id="footerSeparator"></div>
+		<p id="footerDescription">© qzhann, 2019. All rights reserved.</p>
+	</div>
+	<!--Close footer-->
+</body>
+
+<footer>
+    <!--JavaScript-->
+    <script src="IntroductionScript.js"></script>
+    <!--close JavaScript-->
+</footer>
+</html>
+
+<!--Testing Code-->
+<script>//test()</script>
