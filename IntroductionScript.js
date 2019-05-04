@@ -274,7 +274,7 @@ function presentControlsLayer() {
     viewsDescriptionDiv.style.opacity = 0;
     viewsDescriptionDiv.style.visibility = "hidden";
     controlsDescriptionDiv.style.width = "340px";
-    controlsDescriptionDiv.style.padding = "0px";
+    controlsDescriptionDiv.style.padding = "0px 80px 0px 0px";
 
     // Change the bigTitleLabel's text and show it, and introduce button
     setTimeout(function() {
@@ -427,6 +427,7 @@ function test() {
     showViewsDescriptionFor(textView);
     dismissContinueViewButtonToPresent(scrollIndicator);
 
+    /*
     // Transition from views layer to controls layer
     setTimeout(function() {
         introduceNewViewElement();
@@ -435,9 +436,9 @@ function test() {
     // Controls Layer
     introduceNewControlElement();
     introduceNewControlElement();
-
+    */
 
 }
 
-//test();
+test();
 
