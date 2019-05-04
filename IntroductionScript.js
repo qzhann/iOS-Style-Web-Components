@@ -1,17 +1,22 @@
 let bigTitleLabel = document.getElementById("bigTitleLabel");
 
 let introductionLayer = document.getElementById("introductionLayer");
-let viewsLayer = document.getElementById("viewsLayer");
-let scrollIndicator = document.getElementById("scrollIndicator");
-
 let animatedContentsLayer = document.getElementById("animatedContentsLayer");
+let scrollIndicator = document.getElementById("scrollIndicator");
+let iPhoneBackgroundLayer = document.getElementById("iPhoneBackgroundLayer");
+
+let viewsLayer = document.getElementById("viewsLayer");
 let iPhoneDiv = document.getElementById("iPhoneDiv");
 let helloWorldLabel = document.getElementById("helloWorldLabel");
 let peanutImageView = document.getElementById("peanutImageView");
 let textView = document.getElementById("textView");
 let continueViewButton = document.getElementById("continueViewButton");
-let continueControlButton = document.getElementById("continueControlButton");
 
+let sliderDiv = document.getElementById("sliderDiv");
+let slider = document.getElementById("slider");
+let minimumTrack = document.getElementById("minimumTrack");
+let continueControlButton = document.getElementById("continueControlButton");
+let placeholderButton = document.getElementById("placeholderButton");
 
 let viewsDescriptionDiv = document.getElementById("viewsDescriptionDiv");
 let labelTitleLabel = document.getElementById("labelTitleLabel");
@@ -155,13 +160,12 @@ function dismissContinueViewButtonToPresent(element) {
         return;
     }
 
-    // Show continue button 0.5 seconds after the description is presented
+    // Adjust the position of the continue button after the hiding animation is completed
     setTimeout(function() {
         continueViewButton.style.top = top;
-    }, 2000);
+    }, 500);
 }
 
-var canShowContinueButton = false;
 var triggerCount = 0;
 
 function showViewsDescriptionFor(element) {
@@ -182,14 +186,12 @@ function showViewsDescriptionFor(element) {
         descriptionLabel = textViewDescriptionLabel;
 
         // Adjust the can show continue button flag so that it would show only after the user provided input
-        if (Boolean(canShowContinueButton) == false) {
-            canShowContinueButton = true;
-            return;
-        } else {
+        if (triggerCount == 0) {
             triggerCount += 1;
+            return;
+        } else if (triggerCount >= 2) {
+            return;
         }
-
-        if (triggerCount >= 2) { return; }
 
     } else if (element == scrollIndicator) {
         titleLabel = scrollViewTitleLabel;
@@ -289,7 +291,7 @@ function introduceButton() {
     continueControlButton.style.left = "133px";
 }
 
-var newControlElements = [continueControlButton];
+var newControlElements = [sliderDiv ,continueControlButton];
 
 function introduceNewControlElement() {
 
@@ -298,7 +300,10 @@ function introduceNewControlElement() {
 
     dismissContinueControlButtonToPresent(element);
 
+    // Show the element by changing the opacity and visibility
     if (element != continueControlButton) {
+        element.style.visibility = "visible";
+        element.style.opacity = 1;
     }
     
     // Show description for element after 1.5 seconds
@@ -311,15 +316,39 @@ function dismissContinueControlButtonToPresent(element) {
     continueControlButton.style.transition = "all 0.3s ease";
 
     if (element == continueControlButton) {
-        // Smoothly fade out the continue button and adjust the position and text
+        // Smoothly fade out the continue button
         continueControlButton.style.opacity = 0;
         setTimeout(function() {
+            // adjust the position and text of the continue button when fading animation is completed
             continueControlButton.style.transition = "none";
             continueControlButton.style.left = "125px";
             continueControlButton.innerHTML = "Continue";
         }, 500);
+        return;
+    } else if (element == sliderDiv) {
+        setTimeout(function() {
+            // Show placeholder button when the fading animation is completed
+            placeholderButton.style.opacity = 1;
+            placeholderButton.style.visibility = "visible";
+        }, 1000);
     }
+
+    // Animate to hide the continue button
+    continueControlButton.style.visibility = "hidden";
+    continueControlButton.style.opacity = 0;
+    
+    // Adjust the position of the control button after the hiding animation is completed
+    var top = "";
+    if (element == sliderDiv) {
+        top = "290px";
+    }
+
+    setTimeout(function() {
+        continueControlButton.style.top = top;
+    }, 500);
 }
+
+var showSliderDescriptionCount = 0;
 
 function showControlsDescriptionFor(element) {
     var titleLabel = buttonTitleLabel;
@@ -334,6 +363,17 @@ function showControlsDescriptionFor(element) {
         descriptionLabel.style.opacity = 1;
         showContinueControlButtonBelow(element);
         return;
+    } else if (element == sliderDiv) {
+
+        if (showSliderDescriptionCount == 0) {
+            showSliderDescriptionCount += 1;
+            return;
+        } else if (showSliderDescriptionCount >= 2) {
+            return;
+        }
+
+        titleLabel = sliderTitleLabel;
+        descriptionLabel = sliderDescriptionLabel;
     }
 
     // Animate to display the labels
@@ -354,9 +394,31 @@ function showContinueControlButtonBelow(element) {
     continueControlButton.style.opacity = 1;
 }
 
+function placeholderButtonTapped() {
+
+}
+
+function sliderValueChanged() {
+
+    // Adjust the minimum track
+    minimumTrack.style.width = (slider.value).toString() + "px";
+    
+    // Change the background Color
+    let normalizedValue = slider.value / 573.0 + 0.73;
+    iPhoneBackgroundLayer.style.opacity = (1 - normalizedValue);
+
+    // Show description for the slider
+    showControlsDescriptionFor(sliderDiv);
+}
+
+
+
 function test() {
+    // Introduction Layer
     dismissIntroductionLayer();
     presentAnimatedContentsLayer();
+
+    // Views Layer
     presentViewsLayer();
     introduceLabel();
     introduceNewViewElement();
@@ -365,8 +427,17 @@ function test() {
     showViewsDescriptionFor(textView);
     dismissContinueViewButtonToPresent(scrollIndicator);
 
+    // Transition from views layer to controls layer
     setTimeout(function() {
         introduceNewViewElement();
     }, 2000);
+
+    // Controls Layer
+    introduceNewControlElement();
+    introduceNewControlElement();
+
+
 }
+
+//test();
 

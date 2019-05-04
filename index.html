@@ -203,6 +203,21 @@
     /* end of views layer styling */
 
     /* controls layer styling */
+    #iPhoneBackgroundLayer {
+        position: absolute;
+        top: 20px;
+        left: 15px;
+        bottom: 5px;
+        right: 15px;
+        border-radius: 15px;
+        height: 565px;
+
+        background-color: black;
+        opacity: 0;
+        z-index: 1;
+        pointer-events: none;
+
+    }
 
     #continueControlButton {
         font-size: 13px;
@@ -221,6 +236,86 @@
 
     #continueControlButton:active {
         color: rgb(142, 191, 250);
+    }
+
+    #placeholderButton {
+        font-size: 13px;
+        font-weight: lighter;
+        color: rgb(0, 115, 189);
+        position: absolute;
+        top: 80px;
+        left: 133px;
+        cursor: pointer;
+        visibility: hidden;
+        
+        opacity: 0;
+
+        transition: opacity 1.5s ease, visibility 1.5s ease, color 0.3s;
+    }
+
+    #placeholderButton:active {
+        color: rgb(142, 191, 250);
+    }
+
+    #sliderDiv {
+        opacity: 0;
+        visibility: hidden;
+        transition: 1.5s all;
+    }
+
+    #slider {
+        position: absolute;
+
+        width: 175px;
+        height: 1px;
+        -webkit-appearance: none;
+        background-color: rgba(146, 146, 146, 0.5);
+
+        top: 250px;
+        left: 60px;
+    }
+
+    #slider::-webkit-slider-runnable-track {
+        -webkit-appearance:none;
+        height: 1px;
+        color: rgb(146,146,146);
+    }
+
+    #slider::-webkit-slider-thumb {
+        -webkit-appearance:none;
+        width: 20px;
+        height: 20px;
+        margin-top: -10px;
+        border-radius: 20px;
+        box-shadow: 0px 3px 5px rgba(0,0,0,0.32);
+        cursor: grab;
+        background: white;
+    }
+
+    #minimumTrack {
+        background-color: rgb(0,141,235);
+        position: absolute;
+        left: 62px;
+        top: 252px;
+        width: 77px;
+        height: 1px;
+
+    }
+
+    #minimumBrightnessImage {
+        position: absolute;
+        top: 246px;
+        left: 39px;
+        width: 15px;
+        height: auto;
+    }
+
+    #maximumBrightnessImage {
+        position: absolute;
+        top: 240px;
+        left: 241px;
+        width: 25px;
+        height: auto;
     }
 
     /* end of controls layer styling */
@@ -257,6 +352,10 @@
         display: inline-block;
 
         transition: 2.5s all ease-in-out;
+    }
+
+    #buttonDescriptionLabel {
+        margin-bottom: 77px;
     }
 
     .titleLabel {
@@ -337,7 +436,7 @@
                     <div id="continueViewButton" onclick="introduceNewViewElement()">Continue</div>
 
                     <img id="peanutImageView" src="images/peanut.png" alt="peanut" draggable="false">
-                    <textarea id="textView" placeholder="Say hello to text view..." autofocus oninput="showViewsDescriptionFor(textView)"></textarea>
+                    <textarea id="textView" placeholder="Say hello to text view..." oninput="showViewsDescriptionFor(textView)" autofocus></textarea>
                 </div>
                 <!--close viewsLayer-->
 
@@ -348,7 +447,21 @@
                 <!--controlsLayer-->
                 <div id="controlsLayer">
                     <div id="continueControlButton" onclick="introduceNewControlElement()">Continue</div>
+                    <div id="placeholderButton" onclick="placeholderButtonTapped()">Button</div>
+
+                    <!--sliderDiv-->
+                    <div id="sliderDiv">
+                        <input type="range" id="slider" min="0" max="154.5" oninput="sliderValueChanged()">
+                    <img id="minimumBrightnessImage" src="images/brightness.png" alt="brightness">
+                    <div id="minimumTrack"></div>
+                    <img id="maximumBrightnessImage" src="images/brightness.png" alt="brightness">
+                    </div>
+                    <!--close sliderDiv-->
+                    
                 </div>
+                <!--close controlsLayer-->
+
+                <div id="iPhoneBackgroundLayer"></div>
 
             </div>
             <!--close iPhoneDiv-->
@@ -393,6 +506,3 @@
     <!--close JavaScript-->
 </footer>
 </html>
-
-<!--Testing Code-->
-<script>//test()</script>
