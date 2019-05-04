@@ -1,3 +1,5 @@
+let contentDiv = document.getElementById("contentDiv");
+
 let bigTitleLabel = document.getElementById("bigTitleLabel");
 
 let introductionLayer = document.getElementById("introductionLayer");
@@ -440,5 +442,5 @@ function test() {
 
 }
 
-test();
+//test();
 
