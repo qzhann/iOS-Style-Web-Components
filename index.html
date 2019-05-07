@@ -7,6 +7,8 @@
  	<meta name="keywords" content="HTML, CSS, JavaScript, UIKit, Swift, iOS">
  	<meta name="author" content="Zihan Qi">
  	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="UISlider.css">
+    <link rel="stylesheet" href="UISwitch.css">
 <style>
 
     #contentDiv {
@@ -32,7 +34,7 @@
         transition: all 1s;
     }
 
-    #startButton {
+    .traditionalButton {
         width: 102px;
         height: 25px;
         margin-top: 30px;
@@ -47,7 +49,7 @@
         background-image: linear-gradient(rgb(0, 165, 246), rgb(0, 79, 125));
     }
 
-    #startButton:active {
+    .traditionalButton:active {
         color: rgb(203, 203, 203);
         background-image: linear-gradient(rgb(0, 120, 182), rgb(0, 120, 182));
     }
@@ -267,59 +269,23 @@
         transition: 1.5s all;
     }
 
-    #slider {
+    #switchDiv {
+        opacity: 0;
+        visibility: hidden;
+        transition: 1.5s all;
+        margin-top: 400px;
+        margin-left: 60px;
+    }
+
+    #switchPromptLabel {
+        display: inline-block;
         position: absolute;
+        top: 402px;
+        left: 104px;
 
-        width: 175px;
-        height: 1px;
-        -webkit-appearance: none;
-        background-color: rgba(146, 146, 146, 0.5);
-
-        top: 250px;
-        left: 60px;
-    }
-
-    #slider::-webkit-slider-runnable-track {
-        -webkit-appearance:none;
-        height: 1px;
-        color: rgb(146,146,146);
-    }
-
-    #slider::-webkit-slider-thumb {
-        -webkit-appearance:none;
-        width: 20px;
-        height: 20px;
-        margin-top: -10px;
-        border-radius: 20px;
-        box-shadow: 0px 3px 5px rgba(0,0,0,0.32);
-        cursor: grab;
-        background: white;
-    }
-
-    #minimumTrack {
-        background-color: rgb(0,141,235);
-        position: absolute;
-        left: 62px;
-        top: 252px;
-        width: 77px;
-        height: 1px;
-
-    }
-
-    #minimumBrightnessImage {
-        position: absolute;
-        top: 246px;
-        left: 39px;
-        width: 15px;
-        height: auto;
-    }
-
-    #maximumBrightnessImage {
-        position: absolute;
-        top: 241px;
-        left: 241px;
-        width: 25px;
-        height: auto;
+        font-family: Helvetica, sans-serif;
+        font-weight: lighter;
+        font-size: 15px;
     }
 
     /* end of controls layer styling */
@@ -366,6 +332,10 @@
         margin-bottom: 77px;
     }
 
+    #sliderDescriptionLabel {
+        margin-bottom: 71px;
+    }
+
     .titleLabel {
         font-size: 28px;
         font-weight: bold;
@@ -385,6 +355,25 @@
 
     /* end of animated contents layer styling */
 
+    #conclusionLayer {
+        position: absolute;
+        top: 0px;
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 1.5s;
+
+        overflow: hidden;
+    }
+
+    #gitHubLabel {
+        margin: 300px 50px 0px;
+    }
+
+    #goButton {
+        margin-top: 70px;
+    }
+
 	
 
 </style>
@@ -393,9 +382,7 @@
 <body>
 	<!--navigationBar-->
     <div id="navigationBar">
-        <a href="index.html" class="navigationItem" id="introductionNavigationItem">Introduction</a>
-        <a href="views.html" class="navigationItem">Views</a>
-        <a href="controls.html" class="navigationItem">Controls</a>
+        <a href="index.html" class="navigationItem" id="introductionNavigationItem">Views and Controls</a>
         <a href="contact.html" class="navigationItem">Contact Us</a>
     </div> 
     <!--Close navigationBar-->
@@ -410,7 +397,7 @@
         <div id="introductionLayer">
             <h1>UIKit Views and Controls</h1>
             <p class="plainText">A simplified explanation.</p>
-            <button id="startButton" onclick="dismissIntroductionLayer()">Start</button>
+            <button id="startButton" class="traditionalButton" onclick="dismissIntroductionLayer()">Start</button>
         </div>
         <!--close introductionLayer-->
 
@@ -429,7 +416,7 @@
                 <p id="sliderDescriptionLabel" class="descriptionLabel">A control used to select a single value from a continuous range of values.</p>
 
                 <p id="switchTitleLabel" class="titleLabel">Switch</p>
-                <p id="switchDescriptionLabel" class="descriptionLabel">A control used to select a single value from a continuous range of values.</p>
+                <p id="switchDescriptionLabel" class="descriptionLabel">A control that offers a binary choice, such as On/Off.</p>
             </div>
             <!--close controlsDescriptionDiv-->
 
@@ -455,16 +442,34 @@
                 <!--controlsLayer-->
                 <div id="controlsLayer">
                     <div id="continueControlButton" onclick="introduceNewControlElement()">Continue</div>
-                    <div id="placeholderButton" onclick="placeholderButtonTapped()">Button</div>
+                    <div id="placeholderButton">Button</div>
 
                     <!--sliderDiv-->
                     <div id="sliderDiv">
                         <input type="range" id="slider" min="0" max="154.5" oninput="sliderValueChanged()">
-                    <img id="minimumBrightnessImage" src="images/brightness.png" alt="brightness">
-                    <div id="minimumTrack"></div>
-                    <img id="maximumBrightnessImage" src="images/brightness.png" alt="brightness">
+                        <img id="minimumBrightnessImage" src="images/brightness.png" alt="brightness">
+                        <div id="minimumTrack"></div>
+                        <img id="maximumBrightnessImage" src="images/brightness.png" alt="brightness">
                     </div>
                     <!--close sliderDiv-->
+
+                    <!--switchDiv-->
+                    <div id="switchDiv">
+                        <div id="switchPromptLabel">Sound</div>
+                        <label id="switchWrapperLabel">
+                            <input id="switchCheckbox" type="checkbox" onchange="switchTapped()">
+                            <div id="switchBackground" class="switch normal off"></div>
+                            <div id="switchAnimatedBackground" class="switch normal off"></div>
+                            <div id="switchToggle" class="switch normal off"></div>
+                        </label>
+                    </div>
+                    <!--close switchDiv-->
+
+                    <audio id="iPhoneRingTone" loop>
+                        <source src="audios/iPhoneRingTone.mp3">
+                    </audio>
+
+                    
                     
                 </div>
                 <!--close controlsLayer-->
@@ -489,11 +494,16 @@
                 <p id="scrollViewDescriptionLabel" class="descriptionLabel">A view that allows the scrolling and zooming of its contained views.</p>
             </div>
             <!--close viewsDescriptionDiv-->
-
         </div>
         <!--close animatedContentsLayer-->
 
-
+        <!--conclusionLayer-->
+        <div id="conclusionLayer">
+            <h2 id="gitHubLabel">View the GitHub Repository</h2>
+            <a href="" target="_blank"></a>
+            <button id="goButton" class="traditionalButton" onclick="presentContact()">Go!</button>
+        </div>
+        <!--close conclusionLayer-->
 
 
     </div>

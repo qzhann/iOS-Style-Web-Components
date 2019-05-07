@@ -20,6 +20,12 @@ let minimumTrack = document.getElementById("minimumTrack");
 let continueControlButton = document.getElementById("continueControlButton");
 let placeholderButton = document.getElementById("placeholderButton");
 
+let switchDiv = document.getElementById("switchDiv");
+let switchBackground = document.getElementById("switchBackground");
+let switchToggle = document.getElementById("switchToggle");
+let switchAnimatedBackground = document.getElementById("switchAnimatedBackground");
+let ringTone = document.getElementById("iPhoneRingTone");
+
 let viewsDescriptionDiv = document.getElementById("viewsDescriptionDiv");
 let labelTitleLabel = document.getElementById("labelTitleLabel");
 let labelDescriptionLabel = document.getElementById("labelDescriptionLabel");
@@ -36,6 +42,8 @@ let sliderTitleLabel = document.getElementById("sliderTitleLabel");
 let sliderDescriptionLabel = document.getElementById("sliderDescriptionLabel");
 let switchTitleLabel = document.getElementById("switchTitleLabel");
 let switchDescriptionLabel = document.getElementById("switchDescriptionLabel");
+
+let conclusionLayer = document.getElementById("conclusionLayer");
 
 /*
 Introduction Layer Methods
@@ -109,7 +117,6 @@ var newViewElements = [scrollIndicator, textView, peanutImageView];
 
 // introduceNewViewElement is called when introducing elements with no special transitions
 function introduceNewViewElement() {
-
     // Get the next element to introduce
     if (newViewElements.length == 0) {
         presentControlsLayer();
@@ -293,9 +300,14 @@ function introduceButton() {
     continueControlButton.style.left = "133px";
 }
 
-var newControlElements = [sliderDiv ,continueControlButton];
+var newControlElements = [switchDiv, sliderDiv, continueControlButton];
 
 function introduceNewControlElement() {
+    // If empty, present conclusion layer
+    if (newControlElements.length == 0) {
+        presentConclusionLyaer();
+        return;
+    }
 
     // Get the next element to introduce
     let element = newControlElements.pop();
@@ -343,6 +355,13 @@ function dismissContinueControlButtonToPresent(element) {
     var top = "";
     if (element == sliderDiv) {
         top = "290px";
+    } else if (element == switchDiv) {
+        top = "530px";
+        setTimeout(function() {
+            continueControlButton.innerHTML = "Learn more ...";
+            continueControlButton.style.left = "113px";
+        }, 500);
+        
     }
 
     setTimeout(function() {
@@ -351,6 +370,7 @@ function dismissContinueControlButtonToPresent(element) {
 }
 
 var showSliderDescriptionCount = 0;
+var showSwitchDescriptionCount = 0;
 
 function showControlsDescriptionFor(element) {
     var titleLabel = buttonTitleLabel;
@@ -376,6 +396,16 @@ function showControlsDescriptionFor(element) {
 
         titleLabel = sliderTitleLabel;
         descriptionLabel = sliderDescriptionLabel;
+    } else if (element == switchDiv) {
+        titleLabel = switchTitleLabel;
+        descriptionLabel = switchDescriptionLabel;
+
+        if (showSwitchDescriptionCount == 0) {
+            showSwitchDescriptionCount += 1;
+            return;
+        } else if (showSwitchDescriptionCount >= 2) {
+            return;
+        }
     }
 
     // Animate to display the labels
@@ -389,19 +419,14 @@ function showControlsDescriptionFor(element) {
 }
 
 function showContinueControlButtonBelow(element) {
-
     // Animate to show continue button
     continueControlButton.style.transition = "opacity 1.5s ease, visibility 1.5s ease, color 0.3s";
     continueControlButton.style.visibility = "visible";
     continueControlButton.style.opacity = 1;
 }
 
-function placeholderButtonTapped() {
-
-}
 
 function sliderValueChanged() {
-
     // Adjust the minimum track
     minimumTrack.style.width = (slider.value).toString() + "px";
     
@@ -413,7 +438,41 @@ function sliderValueChanged() {
     showControlsDescriptionFor(sliderDiv);
 }
 
+var ringToneisPaused = true;
 
+function switchTapped() {
+    // Toggle the class for all switch elements
+    let switchElements = document.getElementsByClassName("switch");
+    for (var i = 0; i < switchElements.length; i++) {
+      let element = switchElements[i];
+      element.classList.toggle("on");
+      element.classList.toggle("off");
+    }
+
+    // Pause or play audio
+    if (ringToneisPaused == true) {
+        ringTone.play();
+    } else {
+        ringTone.pause();
+    }
+        ringToneisPaused = !ringToneisPaused;
+
+    // Show description for the switch
+    showControlsDescriptionFor(switchDiv);
+}
+
+function presentConclusionLyaer() {
+    animatedContentsLayer.style.visibility = "hidden";
+    animatedContentsLayer.style.opacity = 0;
+
+    conclusionLayer.style.visibility = "visible";
+    conclusionLayer.style.opacity = 1;
+
+}
+
+function presentContact() {
+
+}
 
 function test() {
     // Introduction Layer
@@ -429,7 +488,6 @@ function test() {
     showViewsDescriptionFor(textView);
     dismissContinueViewButtonToPresent(scrollIndicator);
 
-    /*
     // Transition from views layer to controls layer
     setTimeout(function() {
         introduceNewViewElement();
@@ -438,9 +496,10 @@ function test() {
     // Controls Layer
     introduceNewControlElement();
     introduceNewControlElement();
-    */
+    introduceNewControlElement();
+    //introduceNewControlElement();
 
 }
 
-//test();
+test();
 
