@@ -495,9 +495,8 @@ function test() {
     introduceNewControlElement();
     introduceNewControlElement();
     introduceNewControlElement();
-    //introduceNewControlElement();
+    introduceNewControlElement();
 
 }
 
-test();
-
+//test();
