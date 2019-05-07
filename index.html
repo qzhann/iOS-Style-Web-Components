@@ -10,24 +10,7 @@
     <link rel="stylesheet" href="UISlider.css">
     <link rel="stylesheet" href="UISwitch.css">
 <style>
-
-    #contentDiv {
-        margin: 0px auto;
-        height: 900px;
-        width: 900px;
-        text-align: center;
-
-        overflow: hidden;
-    }
-
-
     /* introduction layer styling */
-
-    h1 {
-        font-size: 53px;
-        font-weight: 500;
-        margin-top: 100px;
-    }
 
     #introductionLayer {
         visibility: visible;
@@ -66,13 +49,6 @@
         transition: all 1s;
 
         overflow: hidden;
-    }
-
-    h2 {
-        font-size: 65px;
-        font-weight: 500;
-        margin: 80px 0px;
-        transition: 1.2s all;
     }
 
     #iPhoneDiv.normal {
@@ -355,9 +331,11 @@
 
     /* end of animated contents layer styling */
 
+    /* conclusion layer styling */
+
     #conclusionLayer {
-        position: absolute;
-        top: 0px;
+        position: relative;
+        margin-top: -900px;
         display: block;
         opacity: 0;
         visibility: hidden;
@@ -370,9 +348,15 @@
         margin: 300px 50px 0px;
     }
 
+    #starText {
+        margin-top: 35px;
+    }
+
     #goButton {
         margin-top: 70px;
     }
+
+    /* end of conclusion layer styling */
 
 	
 
@@ -500,8 +484,10 @@
         <!--conclusionLayer-->
         <div id="conclusionLayer">
             <h2 id="gitHubLabel">View the GitHub Repository</h2>
-            <a href="" target="_blank"></a>
-            <button id="goButton" class="traditionalButton" onclick="presentContact()">Go!</button>
+            <a href="https://github.com/qzhann/UIKit-Views-and-Controls" target="_blank">
+                <button id="goButton" class="traditionalButton">Go!</button>
+            </a>
+            <p id="starText" class="plainText">Give it a star if you like it :)</p>
         </div>
         <!--close conclusionLayer-->
 

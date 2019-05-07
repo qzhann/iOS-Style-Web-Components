@@ -8,7 +8,69 @@
     <meta name="author" content="Zihan Qi">
     <link rel="stylesheet" href="style.css">
 <style>
+    .footnote {
+        font-size: 13px;
+        font-weight: lighter;
+        margin-top: 30px;
+    }
 
+    #contentDiv {
+        width: 1000px;
+        overflow: visible;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 120px;
+    }
+
+    h3 {
+        font-size: 40px;
+        font-weight: normal;
+        margin-bottom: 0px;
+    }
+
+    .plainText {
+        margin-top: 5px;
+    }
+
+    ul {
+        margin-top: 50px;
+        list-style-position: inside;
+        margin-left: -54px;
+    }
+
+    li {
+        margin: 25px 0px;
+        font-weight: lighter;
+    }
+
+
+    #textDiv {
+        display: inline-block;
+        vertical-align: top;
+        width: 450px;
+        height: 600px;
+        text-align: left;
+        margin-left: 50px;
+        margin-right: 30px;
+    }
+
+    #bianbianImage {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 20px;
+        width: 450px;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0px 0px 5px rgba(0,0,0,0.25);
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+    }
+
+    #bianbianImage:hover {
+        transform: scale(1.02);
+    }
     
 
 </style>
@@ -26,6 +88,25 @@
     <!--contentDiv-->
     <div id="contentDiv">
 
+        <h2>Contact</h2>
+
+        <!--textDiv-->
+        <div id="textDiv">
+            <h3>Zihan Qi</h3>
+            <p class="plainText">University of Southern California, Class of 2022</p>
+            <ul>
+                <li>Strong programming skills in iOS development</li>
+                <li>Strong knowledge in Swift</li>
+                <li>Good understanding and programming experience of C++</li>
+                <li>Familiarity with HTML, CSS, and Javascript</li>
+                <li>Has 3 cute dogs at home</li>
+            </ul>
+            <p class="footnote">Email: zihanqi@usc.edu</p>
+        </div>
+        <!--close textDiv-->
+
+        <img id="bianbianImage" src="images/bianbian.png" alt="Bianbian" onclick="bianbianImageTapped()">
+        
     </div>
     <!--close contentDiv-->
 
@@ -36,6 +117,17 @@
         <p id="footerDescription">© qzhann, 2019. All rights reserved.</p>
     </div>
     <!--Close footer-->
+
+    <script>
+        let bianbianImage = document.getElementById("bianbianImage");
+        let images = ["images/bianbian.png", "images/diudiu.jpg", "images/cleveland.jpg"];
+        var index = 0;
+        
+        function bianbianImageTapped() {
+            bianbianImage.src = images[index % 3];
+            index += 1;
+        }
+    </script>
     
 </body>
 </html>

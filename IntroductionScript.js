@@ -462,15 +462,13 @@ function switchTapped() {
 }
 
 function presentConclusionLyaer() {
+    ringTone.pause();
+
     animatedContentsLayer.style.visibility = "hidden";
     animatedContentsLayer.style.opacity = 0;
 
     conclusionLayer.style.visibility = "visible";
     conclusionLayer.style.opacity = 1;
-
-}
-
-function presentContact() {
 
 }
 

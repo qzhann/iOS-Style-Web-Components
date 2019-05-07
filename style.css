@@ -4,8 +4,25 @@ body {
 }
 
 #contentDiv {
-	margin: 0px 30px;
-	text-align: center;
+    margin: 0px auto;
+    height: 900px;
+    width: 900px;
+    text-align: center;
+
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 53px;
+    font-weight: 500;
+    margin-top: 100px;
+}
+
+h2 {
+    font-size: 65px;
+    font-weight: 500;
+    margin: 80px 0px;
+    transition: 1.2s all;
 }
 
 #navigationBar {
