@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+  <!--Note that the switch is implemented as a styled checkbox, since the checkbox serves as a logic gate itself, which removes the potential Javascript code needed to track the on/off state of the switch.-->
+
+  <style>
+    /* switchWrapperLabel defines the region in which the user interacts with the switch */
+    #switchWrapperLabel {
+      position: relative;
+      display: inline-block;
+      width: 33px;
+      height: 20px;
+    }
+
+    /* Hides the checkbox appearance, only allowing interaction via switchWrapperLabel*/
+    #switchCheckbox {
+      display: none;
+    }
+
+    /* Elements in a switch will have different stylings in on and off states, respectively. But these stylings will have many overlaps, which is defined in the following code as a ".normal" class for each element. */
+
+    /* Styling for switch background */
+
+    #switchBackground.normal {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      right: 0px;
+      cursor: pointer;
+      border-radius: 20px;  /* Round corners for the switch */
+    }
+
+    #switchBackground.off {
+      background-color: #E5E5EA;  /* Apple System Light Gray */
+      transition: 0.15s all ease-in-out;  /* 0.15s to change color to green */
+    }
+
+    #switchBackground.on {
+      background-color: #4CD964; /* Apple System Green */
+      transition: 0.1s all ease-in-out; /* 0.1s to change color to light gray */
+    }
+
+    /* End of styling for switch background */
+
+
+    /* Styling for switch toggle (thumb) */
+
+    #switchToggle.normal {
+      position: absolute;
+      top: 1px;
+      bottom: 1px;
+      height: 18px;
+      width: 18px;
+      border-radius: 18px;  /* Round toggle */
+      background-color: #FFFFFF;  /* Apple System White */
+
+      /* To represent the UIKit Switch apperance, box shadow with larger blur value is used so that the thumb is easy to see. */
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.28);
+
+      /* Allows user interaction with the switch inside the region bounded by switchBackground, unaffected by the position of the click. */
+      pointer-events: none;
+
+      /* 0.3 seconds with no delay for the toggle to translate horizontally by changing the left attribute. Create a spring effect upon completion of the translation by using transform with a delay. */
+      transition: left 0.3s 0s ease-in-out, transform 0.05s 0.3s ease-in-out;
+
+      /* Note that UIKit Switch toggle uses a thin gray border and a shadow with smaller blur. The thinnest border HTML could generate is 1px in width, which makes the look of the toggle unnatrual. A larger shadow is thus used to compensate the loss of visibility caused by the lack of border. */
+    }
+
+    #switchToggle.off {
+      left: 1px;
+    }
+
+    #switchToggle.on {
+      left: 15px;
+      transform: translateX(-1px);
+    }
+
+    /* End of styling for switch toggle (thumb) */
+
+    /* Styling for switch animated background */
+    /* swichAnimated Background is the region below the toggle and above the switch background, which animates to fill / unfill the background when the swtich is turned off / on. */
+
+    #switchAnimatedBackground.normal {
+      position: absolute;
+      background-color: #EFEFF4;  /* Apple System Extra Light Gray */
+    }
+
+    /* Fills the background with a 1px margin */
+    #switchAnimatedBackground.off {
+      top: 1px;
+      left: 1px;
+      bottom: 1px;
+      right: 1px;
+      border-radius: 18px;
+
+      /* UIKit switch has very similar animation delay */
+      transition: all 0.3s 0.05s ease-out;
+    }
+
+    /* Shrinks in size to hide behind the switch toggle */
+    #switchAnimatedBackground.on {
+      top: 10px;
+      left: 15px;
+      bottom: 12px;
+      right: 19px;
+      border-radius: 0px;
+
+      /* UIKit switch has very similar animation delay */
+      transition: top 0.3s 0.03s ease-in-out, bottom 0.3s 0.03s ease-in-out, right 0.3s 0.03s ease-in-out, border-radius 0.3s 0.03s ease-in-out, left 0.3s 0s ease-in-out;
+    }
+
+    /* End of styling for switch animated background */
+  </style>
+
+</head>
+
+<body>
+  <!--The checkbox is wrapped inside the swtichWrapperLabel as the underlying logic gate-->
+  <label id="switchWrapperLabel">
+    <input id="switchCheckbox" type="checkbox" onchange="switchClicked()">
+    <div id="switchBackground" class="switch normal off"></div>
+    <div id="switchAnimatedBackground" class="switch normal off"></div>
+    <div id="switchToggle" class="switch normal off"></div>
+  </label>
+  
+</body>
+</html>
+
+<script>
+  function switchClicked() {
+    // Get all elements that needs to change state upon a click on the swich
+    let switchElements = document.getElementsByClassName("switch");
+
+    // Toggle class for each element
+    for (var i = 0; i < switchElements.length; i++) {
+      let element = switchElements[i];
+      element.classList.toggle("on");
+      element.classList.toggle("off");
+    }
+  }
+</script>

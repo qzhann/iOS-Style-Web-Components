@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style>
+        /* Positions the slider inside the sliderDiv for convenince */
+        #sliderDiv {
+        	position: relative;
+            padding: 0px;
+        }
+
+        /* Styling for the slider */
+        #slider {
+        	position: absolute;
+        	top: 0px;
+         	left: 0px;
+         	bottom: 0px;
+         	right: 0px;
+         	width: 150px;	/* Width of the slider track */
+         	height: 1px;	/* Height of the slider track */
+
+         	/* Disable the browser from loading the default appearance of a slider */
+         	-webkit-appearance: none;
+
+         	background-color: #8E8E93; /* Apple System Gray */
+        }
+
+        /* Styling of minimum track */
+        #minimumTrack {
+        	position: absolute;
+            background-color: #007AFF; /* Apple System Blue */
+
+            /* Left and Top are set to 2px to align with the track */
+            left: 2px;
+            top: 2px;
+
+            /* Width is set to the state at which the slider thumb is at the center */
+            width: 67px;
+            height: 1px;
+        }
+    
+        /* Stying of slider thumb */
+        #slider::-webkit-slider-thumb {
+        	width: 16px;
+        	height: 16px;
+        	border-radius: 16px;	/* Round Thumb */
+        	margin-top: -1px;	/* Place the thumb in the middle of the track */
+        	background: white;
+
+        	/* Disable the browser from loading the default appearance of a slider thumb */
+        	-webkit-appearance: none;
+    	
+        	/* To represent the UIKit Slider apperance, box shadow with larger blur value is used so that the thumb is easy to see. */
+        	box-shadow: 0px 2px 5px rgba(0,0,0,0.28);
+        	cursor: grab;
+
+        	/* Note that UIKit Slider thumb uses a thin gray border and a shadow with smaller blur. The thinnest border HTML could generate is 1px in width, which makes the look of the thumb unnatrual. A larger shadow is thus used to compensate the loss of visibility caused by the lack of border. */
+        }
+
+        /* Changes the cursor style to grabbing when the user is interacting with the thumb */
+        #slider::-webkit-slider-thumb:active {
+            cursor: grabbing;
+        }
+
+        /*
+        #slider::-webkit-slider-runnable-track {
+        	height: 1px;
+        	-webkit-appearance: none;
+        }
+        */
+
+	</style>
+</head>
+
+<body>
+    <div id="sliderDiv">
+        <!--The minimum slider value is set to 0, and the max slider value should be the width of the slider minus the width of the thumb to allow easy calculation of the width of the minimumTrack-->
+        <input type="range" id="slider" min="0" max="134">
+        <div id="minimumTrack"></div>
+    </div>
+</body>
+</html>
+
+<!--Javascript to calculate the width of the minimumTrack-->
+<script>
+    let slider = document.getElementById("slider");
+    let minimumTrack = document.getElementById("minimumTrack");
+
+    // Change the width of the minimumTrack when slider value changed
+    slider.oninput = function() {
+        minimumTrack.style.width = (slider.value).toString() + "px";
+    }
+</script>
